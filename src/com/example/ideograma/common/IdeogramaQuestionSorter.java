@@ -1,6 +1,7 @@
 package com.example.ideograma.common;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,7 +12,6 @@ public class IdeogramaQuestionSorter {
 	private static Map<String, String> todosIdeogramas;
 
 	static {
-		questoes = new ArrayList<Questao>();
 		todosIdeogramas = new HashMap<String,String>();
 		todosIdeogramas.put("Amizade", "amizade");
 		todosIdeogramas.put("Amor","amor");
@@ -26,9 +26,13 @@ public class IdeogramaQuestionSorter {
 		todosIdeogramas.put("Felicidade","felicidade");
 		todosIdeogramas.put("Forca","forca");
 		todosIdeogramas.put("Fortuna","fortuna");
-		
+	}
+
+	public static List<Questao> getQuestoes() {
+		questoes = new ArrayList<Questao>();
 		Random rand = new Random();
 		List<String> chaves = new ArrayList<String>(todosIdeogramas.keySet());
+		Collections.shuffle(chaves);
 		for (String chave : chaves) {
 			Questao questao = new Questao();
 			questao.setRespostaCerta(chave);
@@ -53,9 +57,6 @@ public class IdeogramaQuestionSorter {
 			}
 			questoes.add(questao);
 		}
-	}
-
-	public static List<Questao> getQuestoes() {
 		return questoes;
 	}
 

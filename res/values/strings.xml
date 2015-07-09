@@ -7,5 +7,9 @@
     <string name="ideograma">Ideograma</string>
     <string name="title_activity_tela_inicial">TelaInicialActivity</string>
     <string name="title_activity_perdeu">Perdeu</string>
+    <string name="logo">Logo</string>
+    <string name="voce_perdeu">Voce perdeu!</string>
+    <string name="jogar_novamente">Jogar Novamente</string>
+    <string name="menu_principal">Menu Principal</string>
 
 </resources>

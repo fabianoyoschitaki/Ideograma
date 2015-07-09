@@ -32,6 +32,9 @@ public class TelaInicialActivity extends Activity {
 	
 	public void chamaTelaPergunta(){
 		Intent chamaTelaIntent = new Intent(this, PerguntaActivity.class);
+		//animação de transição entre chamadas de intent
+		//chamaTelaIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 		this.startActivity(chamaTelaIntent);
+		overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 	}
 }

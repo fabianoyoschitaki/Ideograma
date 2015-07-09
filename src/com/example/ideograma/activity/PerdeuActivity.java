@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.ideograma.R;
@@ -14,7 +13,9 @@ import com.example.ideograma.R;
 public class PerdeuActivity extends Activity {
 
 	private Button voltarTelaInicial;
+	private Button jogarNovamente;
 	private TextView pontosTextView;
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +26,7 @@ public class PerdeuActivity extends Activity {
 
 	private void inicializaVariaveis() {
 		voltarTelaInicial = (Button) findViewById(R.id.voltar_tela_inicial);
+		jogarNovamente = (Button) findViewById(R.id.jogar_novamente);
 		pontosTextView = (TextView) findViewById(R.id.pontos);
 		
 		Intent intent = getIntent();
@@ -35,6 +37,16 @@ public class PerdeuActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				PerdeuActivity.this.startActivity(new Intent(PerdeuActivity.this, TelaInicialActivity.class));
+				overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+				PerdeuActivity.this.finish();
+			}
+		});
+		
+		jogarNovamente.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				PerdeuActivity.this.startActivity(new Intent(PerdeuActivity.this, PerguntaActivity.class));
+				overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 				PerdeuActivity.this.finish();
 			}
 		});

@@ -9,12 +9,27 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Voce perdeu!" />
+        android:text="@string/voce_perdeu" 
+        style="@style/button_text"
+        />
     
     <TextView
         android:id="@+id/pontos"
         android:layout_width="wrap_content"
+        style="@style/button_text"
         android:layout_height="wrap_content"/>
+    
+    <Button
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginLeft="40dp"
+        android:id="@+id/jogar_novamente"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/option_button"
+        android:text="@string/jogar_novamente"
+        style="@style/button_text" />
     
     <Button
         android:layout_marginTop="20dp"
@@ -25,7 +40,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/option_button"
-        android:text="Menu Principal"
+        android:text="@string/menu_principal"
         style="@style/button_text" />
 
 </LinearLayout>

@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.animation.Animation;
+import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -36,7 +37,8 @@ public class PerguntaActivity extends Activity implements OnClickListener{
 	
 	private int pontos = 0;
 	
-	Animation myFadeInAnimation;
+	Animation acertouPerguntaAnimation;
+	Animation errouPerguntaAnimation;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +48,60 @@ public class PerguntaActivity extends Activity implements OnClickListener{
 		iniciaRodada();
 	}
 
+	/**
+	 * Carregando as variáveis do jogo
+	 * TODO verificar como fazer para não resetar ao deitar a tela
+	 */
+	private void inicializaVariaveis() {
+		
+		questoes = IdeogramaQuestionSorter.getQuestoes();
+		
+		pergunta = (TextView) findViewById(R.id.numeroPergunta);
+		opcao1 = (Button) findViewById(R.id.opcao1);
+		opcao2 = (Button) findViewById(R.id.opcao2);
+		opcao3 = (Button) findViewById(R.id.opcao3);
+		opcao4 = (Button) findViewById(R.id.opcao4);
+		imagem = (ImageView) findViewById(R.id.ideograma);
+		
+		opcao1.setOnClickListener(this);
+		opcao2.setOnClickListener(this);
+		opcao3.setOnClickListener(this);
+		opcao4.setOnClickListener(this);
+
+		errouPerguntaAnimation = AnimationUtils.loadAnimation(PerguntaActivity.this,R.anim.errou_pergunta);
+		errouPerguntaAnimation.setAnimationListener(new AnimationListener() {
+			@Override
+			public void onAnimationStart(Animation animation) {}
+			
+			@Override
+			public void onAnimationRepeat(Animation animation) {}
+			
+			@Override
+			public void onAnimationEnd(Animation animation) {
+				// TODO Auto-generated method stub
+			}
+		});
+		
+		acertouPerguntaAnimation = AnimationUtils.loadAnimation(PerguntaActivity.this,R.anim.acertou_pergunta);
+		acertouPerguntaAnimation.setAnimationListener(new AnimationListener() {
+			@Override
+			public void onAnimationStart(Animation animation) {
+				// TODO Auto-generated method stub
+			}
+			@Override
+			public void onAnimationRepeat(Animation animation) {
+				// TODO Auto-generated method stub
+			}
+			@Override
+			public void onAnimationEnd(Animation animation) {
+				iniciaRodada();
+			}
+		});
+	}
+
+	/**
+	 * Método que configura a próxima rodada
+	 */
 	private void iniciaRodada() {
 		if (numeroQuestao < questoes.size()){
 			Questao questao = questoes.get(numeroQuestao);
@@ -76,26 +132,6 @@ public class PerguntaActivity extends Activity implements OnClickListener{
 		}
 	}
 
-	private void inicializaVariaveis() {
-		
-		questoes = IdeogramaQuestionSorter.getQuestoes();
-		
-		pergunta = (TextView) findViewById(R.id.numeroPergunta);
-		opcao1 = (Button) findViewById(R.id.opcao1);
-		opcao2 = (Button) findViewById(R.id.opcao2);
-		opcao3 = (Button) findViewById(R.id.opcao3);
-		opcao4 = (Button) findViewById(R.id.opcao4);
-		imagem = (ImageView) findViewById(R.id.ideograma);
-		
-		opcao1.setOnClickListener(this);
-		opcao2.setOnClickListener(this);
-		opcao3.setOnClickListener(this);
-		opcao4.setOnClickListener(this);
-		
-		// anima��o de fade no bot�o
-		myFadeInAnimation = AnimationUtils.loadAnimation(PerguntaActivity.this,R.anim.fade);
-	}
-
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -105,30 +141,38 @@ public class PerguntaActivity extends Activity implements OnClickListener{
 
 	@Override
 	public void onClick(View v) {
-//		Toast.makeText(getApplication(), "Op��o: " + ((Button) v).getText(), Toast.LENGTH_SHORT).show();
-		
 		respostaEscolhida = (String) ((Button) v).getText();
-//		verificaResposta(respostaEscolhida);
-//		PerguntaDialog perguntaDialog = new PerguntaDialog(this);
-//		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//		builder.setMessage("Tem certeza disso? Opção: " + respostaEscolhida)
-//			.setPositiveButton("Sim", perguntaDialog)
-//		    .setNegativeButton("Não", perguntaDialog).show();
 		
+		/** 
+		 * Diálogo questionando se está certo disso
+		 
+		PerguntaDialog perguntaDialog = new PerguntaDialog(this);
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setMessage("Tem certeza disso? Opção: " + respostaEscolhida)
+			.setPositiveButton("Sim", perguntaDialog)
+		    .setNegativeButton("Não", perguntaDialog).show();
+		
+		**/
+				
+		verificaResposta(v);
+	}
+
+	/**
+	 * Método que verifica se o botão 
+	 * clicado está com a opção correta
+	 * 
+	 * @param botao
+	 */
+	private void verificaResposta(View botao) {
 		if (respostaEscolhida.equals(respostaCerta)){
-			//Toast.makeText(getApplicationContext(), "Certa resposta!", Toast.LENGTH_SHORT).show();
 			pontos++;
-			v.startAnimation(myFadeInAnimation);
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-			}
-			iniciaRodada();
+			botao.startAnimation(acertouPerguntaAnimation);
 		} else {
-			//Toast.makeText(getApplicationContext(), "Voc� perdeu! Resposta certa era " + respostaCerta, Toast.LENGTH_SHORT).show();
+			botao.startAnimation(errouPerguntaAnimation);
 			Intent perdeuIntent = new Intent(this, PerdeuActivity.class);
 			perdeuIntent.putExtra("pontos", pontos);
 			this.startActivity(perdeuIntent);
+			overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 			this.finish();
 		}
 	}

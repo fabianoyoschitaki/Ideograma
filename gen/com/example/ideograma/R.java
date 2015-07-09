@@ -9,8 +9,10 @@ package com.example.ideograma;
 
 public final class R {
     public static final class anim {
-        public static final int acertou=0x7f040000;
-        public static final int fade=0x7f040001;
+        public static final int acertou_pergunta=0x7f040000;
+        public static final int errou_pergunta=0x7f040001;
+        public static final int fade_in=0x7f040002;
+        public static final int fade_out=0x7f040003;
     }
     public static final class attr {
     }
@@ -46,20 +48,23 @@ public final class R {
         public static final int guerreiro=0x7f02000d;
         public static final int ic_launcher=0x7f02000e;
         public static final int ideogram_imageview=0x7f02000f;
-        public static final int option_button=0x7f020010;
+        public static final int logo=0x7f020010;
+        public static final int option_button=0x7f020011;
     }
     public static final class id {
-        public static final int action_settings=0x7f09000a;
+        public static final int action_settings=0x7f09000c;
         public static final int ideograma=0x7f090001;
-        public static final int iniciar_button=0x7f090006;
+        public static final int iniciar_button=0x7f090007;
+        public static final int jogar_novamente=0x7f09000a;
+        public static final int logo=0x7f090006;
         public static final int numeroPergunta=0x7f090000;
         public static final int opcao1=0x7f090002;
         public static final int opcao2=0x7f090003;
         public static final int opcao3=0x7f090004;
         public static final int opcao4=0x7f090005;
-        public static final int pontos=0x7f090008;
-        public static final int ranking_button=0x7f090007;
-        public static final int voltar_tela_inicial=0x7f090009;
+        public static final int pontos=0x7f090009;
+        public static final int ranking_button=0x7f090008;
+        public static final int voltar_tela_inicial=0x7f09000b;
     }
     public static final class layout {
         public static final int pergunta_activity=0x7f030000;
@@ -74,8 +79,12 @@ public final class R {
         public static final int app_name=0x7f060000;
         public static final int hello_world=0x7f060002;
         public static final int ideograma=0x7f060003;
+        public static final int jogar_novamente=0x7f060008;
+        public static final int logo=0x7f060006;
+        public static final int menu_principal=0x7f060009;
         public static final int title_activity_perdeu=0x7f060005;
         public static final int title_activity_tela_inicial=0x7f060004;
+        public static final int voce_perdeu=0x7f060007;
     }
     public static final class style {
         /** 
